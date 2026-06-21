@@ -13,7 +13,7 @@ context: |
   - Maven 和 Maven Wrapper
   - Spring Web
   - Spring Security
-  - Spring Data JPA
+  - MyBatis-Plus
   - PostgreSQL
   - Flyway
   - JWT
@@ -29,17 +29,19 @@ context: |
   - 项目采用模块化单体架构
   - 顶层按照业务功能分包
   - 模块包括 common、auth、user、post、comment、reaction、moderation
-  - 每个模块内部可以使用 controller、service、repository、entity、dto
-  - 禁止在项目根包下建立全局 controller、service、repository、entity
-  - 模块不得直接访问其他模块的内部 Repository
+  - 每个模块内部可以使用 controller、service、mapper、entity、dto
+  - 禁止在项目根包下建立全局 controller、service、mapper、entity
+  - 模块不得直接访问其他模块的内部 Mapper
   - Controller 只负责 HTTP 适配、参数校验和响应转换
   - 核心业务逻辑必须位于 Service 或领域对象中
-  - JPA Entity 不得直接作为公开 API 响应
+  - MyBatis-Plus 持久化 Entity 不得直接作为公开 API 响应
 
   数据库规则：
   - 数据库使用 PostgreSQL
   - 所有数据库变化必须通过 Flyway Migration
-  - 禁止依赖 Hibernate 自动修改生产数据库结构
+  - 禁止使用 JPA/Hibernate 自动生成或修改数据库结构
+  - MyBatis-Plus Mapper 仅负责数据访问，不得承载业务逻辑
+  - 自定义 SQL 优先使用显式字段列表，禁止在生产查询中使用 SELECT *
   - 邮箱、用户名和点赞等唯一性必须使用数据库约束
   - 文章使用乐观锁防止并发覆盖
   - 核心业务数据使用状态字段或软删除
@@ -53,7 +55,7 @@ context: |
   - 错误响应采用 ProblemDetail 风格
   - 每个业务异常必须有稳定错误码
   - 分页默认 20 条，最大 100 条
-  - 不直接返回 JPA Entity
+  - 不直接返回 MyBatis-Plus 持久化 Entity
 
   安全规则：
   - 使用 Spring Security
@@ -101,6 +103,8 @@ rules:
     - 必须列出 API、数据模型、数据库约束和索引
     - 必须说明认证、授权、事务和并发策略
     - 必须说明异常处理和错误码
+    - 必须说明 MyBatis-Plus Entity、Mapper、自定义 SQL 和 DTO 的边界
+    - 涉及查询变更时必须说明索引、分页及避免 N+1 查询的策略
     - 必须提供测试策略
     - 必须说明被放弃的备选方案
     - 禁止引入当前需求不需要的中间件
@@ -110,5 +114,6 @@ rules:
     - 每个任务只能有一个主要目标
     - 每个任务应包含明确的修改范围和验证方式
     - 测试任务不得全部集中在最后
+    - 数据访问任务必须覆盖 MyBatis-Plus Mapper、自定义 SQL 和 PostgreSQL 集成测试
     - 每个业务阶段完成后必须运行测试
     - 未实际完成和验证的任务不得勾选
