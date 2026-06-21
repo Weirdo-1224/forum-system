@@ -1,5 +1,13 @@
 > 执行规则：所有任务初始保持未勾选。只有完成任务描述中的产物与验收，并实际运行所在阶段的验证命令且结果成功后，才可将对应任务标记为完成。
 
+## 分支约定
+
+- 每个 Phase 从 `main` 切出独立分支，命名格式为 `phase/<N>-<short-name>`，例如 `phase/2-infrastructure`、`phase/3-auth`。
+- 在分支上完成该 Phase 的全部任务并勾选后，运行并通过该 Phase 列出的验证命令。
+- 验证通过后，通过 Merge Request/Pull Request 合并回 `main`；合并前必须确认无未解决的冲突且 `main` 上的回归测试仍通过。
+- 已合并的 Phase 分支可保留作为历史记录，也可在合并后删除。
+- `main` 分支始终保持上一个已完成 Phase 的稳定状态，不允许直接推送未完成或验证失败的 Phase 代码。
+
 ## 1. Phase 1：Spring Boot 项目骨架
 
 - [x] 1.1 对齐 Java 17、Spring Boot 3.5.x 和 Maven Wrapper 构建基线，移除 Spring Data JPA 并声明 MyBatis-Plus、PostgreSQL/Flyway、Security/JWT、Validation、OpenAPI、Actuator、Testcontainers 与测试依赖。（范围：`pom.xml`、`mvnw`、`mvnw.cmd`；验收：Maven 依赖解析成功且依赖树中不含 `spring-boot-starter-data-jpa`）
