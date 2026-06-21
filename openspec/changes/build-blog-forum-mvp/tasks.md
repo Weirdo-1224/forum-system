@@ -2,12 +2,12 @@
 
 ## 1. Phase 1：Spring Boot 项目骨架
 
-- [ ] 1.1 对齐 Java 17、Spring Boot 3.5.x 和 Maven Wrapper 构建基线，移除 Spring Data JPA 并声明 MyBatis-Plus、PostgreSQL/Flyway、Security/JWT、Validation、OpenAPI、Actuator、Testcontainers 与测试依赖。（范围：`pom.xml`、`mvnw`、`mvnw.cmd`；验收：Maven 依赖解析成功且依赖树中不含 `spring-boot-starter-data-jpa`）
-- [ ] 1.2 建立 `common`、`auth`、`user`、`post`、`comment`、`reaction`、`moderation` 一级包及模块内 `controller/service/repository/entity/dto` 结构。（范围：`src/main/java/org/example/forum_system/**`；验收：包结构可编译且不存在根包级业务 Controller、Service、Repository、Entity）
-- [ ] 1.3 建立本地、测试和生产配置入口以及环境变量占位，不写入真实数据库密码或 JWT 密钥。（范围：`src/main/resources/application*.yaml`、`.gitignore`；验收：配置绑定测试通过且仓库不包含真实秘密）
-- [ ] 1.4 添加模块依赖架构测试，禁止 Controller 访问 Repository、跨模块访问内部 Repository 以及 Entity 作为 API DTO。（范围：`src/test/java/**/architecture/**`；验收：合法结构通过，测试规则能够识别示例违规依赖）
-- [ ] 1.5 添加 Spring Boot 上下文启动测试，验证主应用和基础配置可加载。（范围：`src/test/java/**/ForumSystemApplicationTests.java`；验收：上下文测试在无业务实现时通过）
-- [ ] 1.6 运行 Phase 1 验证命令并记录构建与测试结果。（范围：项目构建与 `target/` 测试报告；验收：以下命令全部退出码为 0）
+- [x] 1.1 对齐 Java 17、Spring Boot 3.5.x 和 Maven Wrapper 构建基线，移除 Spring Data JPA 并声明 MyBatis-Plus、PostgreSQL/Flyway、Security/JWT、Validation、OpenAPI、Actuator、Testcontainers 与测试依赖。（范围：`pom.xml`、`mvnw`、`mvnw.cmd`；验收：Maven 依赖解析成功且依赖树中不含 `spring-boot-starter-data-jpa`）
+- [x] 1.2 建立 `common`、`auth`、`user`、`post`、`comment`、`reaction`、`moderation` 一级包及模块内 `controller/service/repository/entity/dto` 结构。（范围：`src/main/java/org/example/forum_system/**`；验收：包结构可编译且不存在根包级业务 Controller、Service、Repository、Entity）
+- [x] 1.3 建立本地、测试和生产配置入口以及环境变量占位，不写入真实数据库密码或 JWT 密钥。（范围：`src/main/resources/application*.yaml`、`.gitignore`；验收：配置绑定测试通过且仓库不包含真实秘密）
+- [x] 1.4 添加模块依赖架构测试，禁止 Controller 访问 Repository、跨模块访问内部 Repository 以及 Entity 作为 API DTO。（范围：`src/test/java/**/architecture/**`；验收：合法结构通过，测试规则能够识别示例违规依赖）
+- [x] 1.5 添加 Spring Boot 上下文启动测试，验证主应用和基础配置可加载。（范围：`src/test/java/**/ForumSystemApplicationTests.java`；验收：上下文测试在无业务实现时通过）
+- [x] 1.6 运行 Phase 1 验证命令并记录构建与测试结果。（范围：项目构建与 `target/` 测试报告；验收：以下命令全部退出码为 0）
 
 **Phase 1 验证命令：**
 
